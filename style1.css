@@ -1,0 +1,37 @@
+html{
+    scrollbar-color: #070D0D black;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-image: url(./bg.jpg);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    height: 100vh;
+    background-attachment: fixed;
+}
+
+#heart {
+    padding-left: 10px;
+    text-decoration: none;
+    color: white;
+}
+
+
+.horizontal-scroll {
+    display: grid;
+    gap: 10px;
+    grid-auto-flow: column;
+    grid-auto-columns: 15%;
+    overflow-x: auto;
+    padding: 20px;
+    scrollbar-color: #070D0D black;
+}
+
+@media (max-width: 500px) {
+    .horizontal-scroll {
+        grid-auto-flow: row;
+        grid-auto-columns: 100%;
+    }
+}

@@ -1,0 +1,31 @@
+html{
+    scrollbar-color: #070D0D black;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-image: url(./bg.jpg);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    height: 100vh;
+    background-attachment: fixed;
+}
+
+#heart {
+    padding-left: 10px;
+    text-decoration: none;
+    color: white;
+}
+
+.detail-label {
+    font-weight: bold;
+}
+
+.detail-value {
+    margin-bottom: 10px;
+}
+nav{
+    position: fixed;
+    top: 0;
+}

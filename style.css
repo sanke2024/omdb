@@ -1,3 +1,7 @@
+html{
+    scrollbar-color: #070D0D black;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -6,20 +10,17 @@ body {
     background-repeat: no-repeat;
     height: 100vh;
     background-attachment: fixed;
-
 }
 input::placeholder {
     text-align: right;
 }
-#heart{
-    position: fixed;
-    top: 10px;
-    right: 20px;
-}
-#heart a{
+
+#heart {
+    padding-left: 10px;
     text-decoration: none;
     color: white;
 }
+
 
 #search {
     width: 100%;
@@ -34,9 +35,8 @@ input::placeholder {
 #suggestions {
     width: 100%;
     font-size: 150%;
-    /* display: none; */
+    display: none;
     background-color:#F8F8F8;
-
     border-top-left-radius: 0px;
     border-top-right-radius: 0px;
 
@@ -47,3 +47,4 @@ input::placeholder {
     text-decoration: none;
     color: black;
 }
+
