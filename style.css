@@ -24,7 +24,7 @@ nav {
     padding-right: 10vw;
     background-color: #070D0D;
     display: flex;
-    height: 8vh;
+    height: 6vh;
     align-items: center;
     font-size: 1.2rem;
     justify-content: space-between;
@@ -32,27 +32,34 @@ nav {
     top: 0px;
 }
 
-
-
-#search {
+#txtSearch {
     border: none;
     border-radius: 3px;
     width: 30vw;
+    padding: 0 .5rem;
 }
 
+#txtSearch:focus {
+    outline: none;
+}
 
 #suggestions {
     width: 30vw;
     flex-direction: column;
-    background-color: #ffffff;
+    background-color: #191919;
     position: absolute;
-    border-bottom-left-radius: 3px;
-    border-bottom-right-radius: 3px;
-    /* display: none; */
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    display: none;
+    font-size: 1rem;
+    padding: 0 .5rem;
+    box-shadow: 0px 16px 27px 0px rgba(0, 0, 0, 0.34);
+
 }
-#suggestions a{
+
+#suggestions a {
     display: block;
-    color: black !important;
+    color: white !important;
 }
 
 #poster {
@@ -72,21 +79,26 @@ nav {
 
 @media (max-width:500px) {
     nav {
+        height: 8vh;
         padding-left: 1vw;
         padding-right: 1vw;
     }
 
-    #search {
+    #txtSearch {
         width: 40vw;
     }
-    #suggestions{
-        width: 40vw;
+
+    #suggestions {
+        position: fixed;
+        left: 5vw;
+        width: 90vw;
     }
 
     #poster {
         text-align: start;
         position: relative;
     }
+
     #omdb {
         padding: 1rem;
         padding-top: 5rem;
