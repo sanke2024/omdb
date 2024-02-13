@@ -61,48 +61,53 @@
               <div class="row g-0">
                 <div class="col-md-4 mx-auto">
                   <img
-                    src="https://m.media-amazon.com/images/M/MV5BMzBmZTMzYmItNzhhMC00M2FkLWIxMGEtMjIxMjAwNmQ2ZmM4XkEyXkFqcGdeQXVyNTIzOTk5ODM@._V1_SX300.jpg"
+                    src=""
                     class="rounded p-3 mx-auto d-block"
                     alt="..."
+                    id="moviePoster"
                   />
-
                 </div>
                 <div class="col-md-8">
                   <div class="card-body">
                     <div class="movie-details p-1">
-                      <h3 id="movieTitle">Title </h3>
+                      <h3 id="movieTitle">Title</h3>
                       <div class="value" id="plot">
-                        A mom and dad who usually say no decide to say yes to
-                        their kids' wildest requests with a few ground rules on
-                        a whirlwind day of fun and adventure.
                       </div>
 
                       <div class="label">Year:</div>
-                      <div class="value" id="year">2021</div>
+                      <div class="value" id="year"></div>
 
                       <div class="label">Rated:</div>
-                      <div class="value" id="rated">PG</div>
+                      <div class="value" id="rated"></div>
 
                       <div class="label">Released:</div>
-                      <div class="value" id="released">12 Mar 2021</div>
+                      <div class="value" id="released"></div>
 
                       <div class="label">Runtime:</div>
-                      <div class="value" id="runtime">86 min</div>
+                      <div class="value" id="runtime"></div>
 
                       <div class="label">Genre:</div>
-                      <div class="value" id="genre">Comedy, Family</div>
+                      <div class="value" id="genre"></div>
 
                       <div class="label">Director:</div>
-                      <div class="value" id="director">
-                        Miguel Arteta
-                      </div>
+                      <div class="value" id="director"></div>
                       <div class="label">Actors:</div>
                       <div class="value" id="actors">
-                        Jennifer Garner, Edgar Ramírez, Jenna Ortega
                       </div>
-                      <hr>
-                      <a href="#" class="card-link" style="color:red !important;">&hearts;</a>
-                      <a href="#" class="card-link" style="color:#1a0dab !important;">IMDb</a>
+                      <hr />
+                      <a
+                        href="#"
+                        class="card-link"
+                        style="color: red !important"
+                        >&hearts;</a
+                      >
+                      <a
+                        href="#"
+                        class="card-link"
+                        style="color: #1a0dab !important"
+                        id="lnkImdb"
+                        >IMDb</a
+                      >
                     </div>
                   </div>
                 </div>
@@ -115,7 +120,40 @@
     <script src="search.js"></script>
     <script>
       // debugger
-      searchAutoPopulate.initialize("txtSearch","suggestions");
+      searchAutoPopulate.initialize("txtSearch", "suggestions");
+
+      let id=window.location.href.match(/[?&]id=([^&]*)/)[1];
+      let getMovieDetails = (id) => {
+        return new Promise(async (resolve,reject) => {
+          try {
+            let response = await fetch(
+              `http://www.omdbapi.com/?apikey=2fa95963&i=${id}`
+            );
+            let data = await response.json();
+            if (data.Response == "False") {
+              reject(data.Error);
+            }
+            resolve(data);
+          } catch (e) {
+            console.log(e);
+          }
+        });
+      };
+      let populateMovieDetails=async (id)=>{
+        let data =await getMovieDetails(id);
+        document.getElementById("movieTitle").textContent=data.Title;
+        document.getElementById("year").textContent=data.Year;
+        document.getElementById("rated").textContent=data.Rated;
+        document.getElementById("released").textContent=data.Released;
+        document.getElementById("runtime").textContent=data.Runtime;
+        document.getElementById("genre").textContent=data.Genre;
+        document.getElementById("director").textContent=data.Director;
+        document.getElementById("actors").textContent=data.Actors;
+        document.getElementById("lnkImdb").href=`https://www.imdb.com/title/${id}/`;
+        document.getElementById("moviePoster").src=data.Poster;
+
+      }
+      populateMovieDetails(id);
     </script>
   </body>
 </html>
