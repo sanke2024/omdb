@@ -36,17 +36,33 @@
   </head>
 
   <body>
+    <div
+      style="
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1000;
+        display: none;
+      "
+    >
+      <img
+        style="margin-right: auto; margin-left: auto"
+        src="spinner.svg"
+        alt="Loading..."
+      />
+    </div>
     <nav>
       <div
         style="
           font-family: 'Anton', sans-serif;
-          font-size: 3.5vh;
+          font-size: 1.5rem;
           background-color: #f5c518;
           padding-left: 0.2rem;
           padding-right: 0.2rem;
         "
       >
-        IMDb
+        <a href="./main.html" style="color: black !important">IMDb</a>
       </div>
       <div>
         <div id="search">
@@ -107,8 +123,7 @@
     <script src="search.js"></script>
     <script>
       // debugger
-      searchAutoPopulate.initialize("txtSearch","suggestions");
+      searchAutoPopulate.initialize("txtSearch", "suggestions");
     </script>
-    
   </body>
 </html>
