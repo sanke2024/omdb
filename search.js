@@ -75,7 +75,8 @@ let searchAutoPopulate = (() => {
         document.addEventListener("click", handleOutsideClick);
     }
     return {
-        initialize: initialize
+        initialize: initialize,
+        fetchMovieList:fetchMovieList
     }
 })();
 
