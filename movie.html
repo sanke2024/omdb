@@ -28,8 +28,8 @@
   </head>
 
   <body>
-    <div 
-    id="spinner"
+    <div
+      id="spinner"
       style="
         position: fixed;
         top: 50%;
@@ -74,7 +74,11 @@
       <div class="container mt-5">
         <div class="row justify-content-center">
           <div class="col-md-10">
-            <div class="card mb-3 shadow-lg" style="max-width: 100%" id="movieCard">
+            <div
+              class="card mb-3 shadow-lg"
+              style="max-width: 100%"
+              id="movieCard"
+            >
               <div class="row g-0">
                 <div class="col-md-4 mx-auto">
                   <img
@@ -110,7 +114,13 @@
                       <div class="label">Actors:</div>
                       <div class="value" id="actors"></div>
                       <hr />
-                      <a href="#" class="card-link" style="color: red !important">Favourate </a>
+                      <a
+                        href="#"
+                        class="card-link"
+                        style="color: red !important"
+                        id="lnkMarkFavourate"
+                        >Favourate
+                      </a>
                       <a
                         href="#"
                         class="card-link"
@@ -150,8 +160,8 @@
         });
       };
       let populateMovieDetails = async (id) => {
-        document.getElementById("movieCard").style.display="none";
-        document.getElementById("spinner").style.display="block";
+        document.getElementById("movieCard").style.display = "none";
+        document.getElementById("spinner").style.display = "block";
         let data = await getMovieDetails(id);
         document.getElementById("movieTitle").textContent = data.Title;
         document.getElementById("year").textContent = data.Year;
@@ -164,13 +174,37 @@
         document.getElementById(
           "lnkImdb"
         ).href = `https://www.imdb.com/title/${id}/`;
+        // debugger
+        document
+          .getElementById("lnkMarkFavourate")
+          .addEventListener("click", (id)=>{
+            markFavourate(id);
+          });
         document.getElementById("moviePoster").src = data.Poster;
-        document.getElementById("spinner").style.display="none";
-        document.getElementById("movieCard").style.display="block";
-
-
+        document.getElementById("spinner").style.display = "none";
+        document.getElementById("movieCard").style.display = "block";
       };
       populateMovieDetails(id);
+
+      let getlatestFavList = () => {
+        if (localStorage.getItem("favList") != null) {
+          let favList = JSON.parse(localStorage.getItem("favList"));
+          return favList;
+        } else {
+          let favList = [];
+          localStorage.setItem("favList", JSON.stringify(favList));
+        }
+      };
+      let markFavourate = (id) => {
+        debugger
+        let favList = getlatestFavList();
+        favList.push(id);
+        localStorage.setItem("favList", JSON.stringify(favList));
+        document.getElementById("fav-btn").style.backgroundColor = "#f5c518";
+        setTimeout(() => {
+          document.getElementById("fav-btn").style.backgroundColor = "#070D0D";
+        }, 500);
+      };
     </script>
   </body>
 </html>
