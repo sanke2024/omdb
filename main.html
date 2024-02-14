@@ -78,8 +78,7 @@
         </div> -->
       </div>
 
-      <div class="container" id="poster">
-        <div class="row">
+        <div class="row" id="poster">
           <div class="col-md-8"  id="posterTilte">
             <span class="material-symbols-outlined" style="font-size: 3rem">
               waving_hand </span><br />
@@ -90,8 +89,7 @@
             <img src="bg-poster.svg" alt="">
           </div>
         </div>
-      </div>
-      <div id="omdb">
+      <div class="row" id="omdb">
         <h1>OMDb API</h1>
         <hr />
         <div style="text-align: justify">
@@ -125,9 +123,17 @@
       try {
         suggestions.style.display = "none";
         document.getElementById("spinner").style.display = "block";
-        document.getElementById("movieList").innerHTML = "";
         document.getElementById("movieList").classList.add("p-5")
-        let data = await searchAutoPopulate.fetchMovieList(query);
+        let data ;
+        try{
+          
+          data= await searchAutoPopulate.fetchMovieList(query);
+          document.getElementById("movieList").innerHTML = "";
+        }
+        catch(e){
+        document.getElementById("spinner").style.display = "none";
+        return
+        }
         data.forEach(element => {
           let item = document.createElement("div");
           item.classList.add("col-md-4", "p-5");
@@ -141,7 +147,7 @@
                 <div>Year: <span>${element.Year}</span></div>
                 </div>
                 <br />
-                <a href="#" class="card-link" style="color: red !important" onclick="markFavourate('${element.imdbID}')";>Favourate </a>
+                <a href="javascript:;" class="card-link" style="color: red !important" onclick="markFavourate('${element.imdbID}')";>Favourate </a>
                 <a href="./movie.html?id=${element.imdbID}" style="color:#1a0dab !important" > Expand</a>
                 </div>
                 </div>`;
@@ -157,7 +163,7 @@
       catch (e) { console.log(e); }
     }
     document.getElementById("txtSearch").addEventListener("keyup", (e) => {
-      if (e.key == "Enter") {
+      if (e.key == "Enter" && (e.target.value.length >=3)) {
         try {
           // debugger
           poulateMovieList(e.target.value);
