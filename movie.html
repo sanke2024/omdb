@@ -177,7 +177,7 @@
         // debugger
         document
           .getElementById("lnkMarkFavourate")
-          .addEventListener("click", (id)=>{
+          .addEventListener("click", () => {
             markFavourate(id);
           });
         document.getElementById("moviePoster").src = data.Poster;
@@ -196,10 +196,12 @@
         }
       };
       let markFavourate = (id) => {
-        debugger
+        debugger;
         let favList = getlatestFavList();
-        favList.push(id);
-        localStorage.setItem("favList", JSON.stringify(favList));
+        if (!favList.includes(id)) {
+          favList.push(id);
+          localStorage.setItem("favList", JSON.stringify(favList));
+        }
         document.getElementById("fav-btn").style.backgroundColor = "#f5c518";
         setTimeout(() => {
           document.getElementById("fav-btn").style.backgroundColor = "#070D0D";

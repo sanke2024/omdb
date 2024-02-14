@@ -36,16 +36,23 @@
   </head>
 
   <body>
-    <div id="spinner" style="
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1000;
-    display: none;
-  ">
-<img style="margin-right: auto; margin-left: auto" src="spinner.svg" alt="Loading..." />
-</div>
+    <div
+      id="spinner"
+      style="
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1000;
+        display: none;
+      "
+    >
+      <img
+        style="margin-right: auto; margin-left: auto"
+        src="spinner.svg"
+        alt="Loading..."
+      />
+    </div>
     <nav>
       <div
         style="
@@ -74,7 +81,6 @@
 
     <main>
       <div class="container horizontal-scroll" id="favMovieList">
-
         <!-- <div class="card">
                 <img src="https://m.media-amazon.com/images/M/MV5BMzBmZTMzYmItNzhhMC00M2FkLWIxMGEtMjIxMjAwNmQ2ZmM4XkEyXkFqcGdeQXVyNTIzOTk5ODM@._V1_SX300.jpg"
                     class="card-img-top" alt="...">
@@ -93,33 +99,38 @@
     </main>
     <script src="search.js"></script>
     <script>
-    searchAutoPopulate.initialize("txtSearch", "suggestions");
+      searchAutoPopulate.initialize("txtSearch", "suggestions");
 
-        // debugger
-        let getlatestFavList = () => {
-        ;
-        if (localStorage.getItem('favList') != null){
-          let favList=JSON.parse(localStorage.getItem("favList"));
+      // debugger
+      let getlatestFavList = () => {
+        if (localStorage.getItem("favList") != null) {
+          let favList = JSON.parse(localStorage.getItem("favList"));
           return favList;
-
-        }else{
-          let favList=[]
-          localStorage.setItem("favList",JSON.stringify(favList));
+        } else {
+          let favList = [];
+          localStorage.setItem("favList", JSON.stringify(favList));
         }
-      }
-      let markFavourate=(id)=>{
+      };
+      let markFavourate = (id) => {
         // debugger
-        let favList=getlatestFavList();
-        favList.push(id);
-        localStorage.setItem("favList",JSON.stringify(favList));
-      }
-      let removeFavourate=(id)=>{
-        // debugger
-        let favList=getlatestFavList();
-        favList=favList.filter((element)=>element!=id);
-        document.getElementById(id).style.display="none";
-        localStorage.setItem("favList",JSON.stringify(favList));
-      }
+
+        let favList = getlatestFavList();
+        if (!favList.includes(id)) {
+          favList.push(id);
+          localStorage.setItem("favList", JSON.stringify(favList));
+        }
+        document.getElementById("fav-btn").style.backgroundColor = "#f5c518";
+        setTimeout(() => {
+          document.getElementById("fav-btn").style.backgroundColor = "#070D0D";
+        }, 500);
+      };
+      let removeFavourate = (id) => {
+        debugger
+        let favList = getlatestFavList();
+        favList = favList.filter((element) => element != id);
+        document.getElementById(id).style.display = "none";
+        localStorage.setItem("favList", JSON.stringify(favList));
+      };
 
       let getMovieDetails = (id) => {
         // debugger
@@ -141,12 +152,14 @@
       let populateFavMovieList = async (favList) => {
         try {
           document.getElementById("spinner").style.display = "block";
-          setTimeout(() => { document.getElementById("spinner").style.display = "none"; }, 1000)
-          for(let i=0;i<favList.length;i++){
+          setTimeout(() => {
+            document.getElementById("spinner").style.display = "none";
+          }, 1000);
+          for (let i = 0; i < favList.length; i++) {
             let data = await getMovieDetails(favList[i]);
             let item = document.createElement("div");
-            item.classList.add("card","p-2");
-            item.id=data.imdbID;
+            item.classList.add("card", "p-2");
+            item.id = data.imdbID;
             item.innerHTML = `
                   <img src="${data.Poster}"
                       class="card-img-top imgCard" alt="..."  >
@@ -161,15 +174,12 @@
                       
               </div>`;
             document.getElementById("favMovieList").append(item);
-
-
-          };
-         
+          }
+        } catch (e) {
+          console.log(e);
         }
-        catch (e) { console.log(e); }
-      }
+      };
       populateFavMovieList(getlatestFavList());
-
     </script>
   </body>
 </html>

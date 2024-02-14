@@ -77,6 +77,9 @@ nav {
     text-align: center;
     padding: 6rem;
 }
+#posterTilte{
+    font-size: 3rem;
+}
 
 @media (max-width:500px) {
     nav {
@@ -106,5 +109,8 @@ nav {
     }
     #movieList{
         padding:0px !important;
+    }
+    #posterTilte{
+        font-size: 2rem;
     }
 }
