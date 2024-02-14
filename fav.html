@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>IMDb Clone</title>
@@ -34,54 +33,49 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
     />
-</head>
+  </head>
 
-<body>
-    <div
-    style="
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 1000;
-        display: none;
-    "
-  >
-    <img
-      style="margin-right: auto; margin-left: auto"
-      src="spinner.svg"
-      alt="Loading..."
-    />
-  </div>
+  <body>
+    <div id="spinner" style="
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    display: none;
+  ">
+<img style="margin-right: auto; margin-left: auto" src="spinner.svg" alt="Loading..." />
+</div>
     <nav>
-        <div
-          style="
-            font-family: 'Anton', sans-serif;
-            font-size: 1.5rem;
-            background-color: #f5c518;
-            padding-left: 0.2rem;
-            padding-right: 0.2rem;
-          "
-        >
-          <a href="./main.html" style="color: black !important;">IMDb</a>
+      <div
+        style="
+          font-family: 'Anton', sans-serif;
+          font-size: 1.5rem;
+          background-color: #f5c518;
+          padding-left: 0.2rem;
+          padding-right: 0.2rem;
+        "
+      >
+        <a href="./main.html" style="color: black !important">IMDb</a>
+      </div>
+      <div>
+        <div id="search">
+          <input type="text" id="txtSearch" placeholder="search" />
         </div>
-        <div>
-          <div id="search">
-            <input type="text" id="txtSearch" placeholder="search" />
-          </div>
-          <div id="suggestions">
-            <!-- <a href="">one</a> -->
-          </div>
+        <div id="suggestions">
+          <!-- <a href="">one</a> -->
         </div>
-  
-        <div class="btn btn-outline-warning" id="fav-btn">
-          <a id="fav" href="./fav.html"> Favourates </a>
-        </div>
-      </nav>
+      </div>
+
+      <div class="btn btn-outline-warning" id="fav-btn">
+        <a id="fav" href="./fav.html"> Favourates </a>
+      </div>
+    </nav>
 
     <main>
-        <div class="container horizontal-scroll">
-            <div class="card">
+      <div class="container horizontal-scroll" id="favMovieList">
+
+        <!-- <div class="card">
                 <img src="https://m.media-amazon.com/images/M/MV5BMzBmZTMzYmItNzhhMC00M2FkLWIxMGEtMjIxMjAwNmQ2ZmM4XkEyXkFqcGdeQXVyNTIzOTk5ODM@._V1_SX300.jpg"
                     class="card-img-top" alt="...">
                 <div class="card-body">
@@ -93,16 +87,89 @@
                     <br>
                     <a href="#" class="card-link" style="color:red !important;">&hearts;</a>
                     <a href="#" class="card-link" style="color:#1a0dab !important;">IMDb</a>
-                </div>
-            </div>
-        </div>
-
+                </div> 
+            </div>-->
+      </div>
     </main>
     <script src="search.js"></script>
     <script>
-      // debugger
-      searchAutoPopulate.initialize("txtSearch","suggestions");
-    </script>
-</body>
+    searchAutoPopulate.initialize("txtSearch", "suggestions");
 
+        // debugger
+        let getlatestFavList = () => {
+        ;
+        if (localStorage.getItem('favList') != null){
+          let favList=JSON.parse(localStorage.getItem("favList"));
+          return favList;
+
+        }else{
+          let favList=[]
+          localStorage.setItem("favList",JSON.stringify(favList));
+        }
+      }
+      let markFavourate=(id)=>{
+        // debugger
+        let favList=getlatestFavList();
+        favList.push(id);
+        localStorage.setItem("favList",JSON.stringify(favList));
+      }
+      let removeFavourate=(id)=>{
+        // debugger
+        let favList=getlatestFavList();
+        favList=favList.filter((element)=>element!=id);
+        document.getElementById(id).style.display="none";
+        localStorage.setItem("favList",JSON.stringify(favList));
+      }
+
+      let getMovieDetails = (id) => {
+        // debugger
+        return new Promise(async (resolve, reject) => {
+          try {
+            let response = await fetch(
+              `http://www.omdbapi.com/?apikey=2fa95963&i=${id}`
+            );
+            let data = await response.json();
+            if (data.Response == "False") {
+              reject(data.Error);
+            }
+            resolve(data);
+          } catch (e) {
+            console.log(e);
+          }
+        });
+      };
+      let populateFavMovieList = async (favList) => {
+        try {
+          document.getElementById("spinner").style.display = "block";
+          setTimeout(() => { document.getElementById("spinner").style.display = "none"; }, 1000)
+          for(let i=0;i<favList.length;i++){
+            let data = await getMovieDetails(favList[i]);
+            let item = document.createElement("div");
+            item.classList.add("card","p-2");
+            item.id=data.imdbID;
+            item.innerHTML = `
+                  <img src="${data.Poster}"
+                      class="card-img-top imgCard" alt="..."  >
+                  <div class="card-body">
+                      <div class="card-text">
+                          <div>Name: <span>${data.Title}</span></div>
+                          <div>Year: <span>${data.Year}</span></div>
+                      </div>
+                      <br>
+                      <div><a href="#" class="card-link" style="color: red !important" onclick="removeFavourate('${data.imdbID}')";>Remove </a>
+                      <a href="./movie.html?id=${data.imdbID}" style="color:#1a0dab !important" > Expand</a></div> 
+                      
+              </div>`;
+            document.getElementById("favMovieList").append(item);
+
+
+          };
+         
+        }
+        catch (e) { console.log(e); }
+      }
+      populateFavMovieList(getlatestFavList());
+
+    </script>
+  </body>
 </html>

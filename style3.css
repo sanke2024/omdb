@@ -62,9 +62,11 @@ nav {
     color: white !important;
 }
 
-.label{
+.label {
     font-weight: bold;
 }
+
+
 
 @media (max-width: 500px) {
     .horizontal-scroll {
@@ -87,4 +89,5 @@ nav {
         left: 5vw;
         width: 90vw;
     }
+ 
 }

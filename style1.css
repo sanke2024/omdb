@@ -71,11 +71,14 @@ nav {
     padding: 20px;
     margin-top: 5%;
 }
+.imgCard {
+    height: 250px;
+}
 
 @media (max-width: 500px) {
     .horizontal-scroll {
         grid-auto-columns: 50%;
-        margin-top: 30%;
+        margin-top: 15%;
     }
 
     nav {
@@ -92,5 +95,8 @@ nav {
         position: fixed;
         left: 5vw;
         width: 90vw;
+    }
+    .imgCard {
+        height: 350px;
     }
 }

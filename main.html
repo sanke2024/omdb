@@ -156,7 +156,7 @@
     document.getElementById("txtSearch").addEventListener("keyup", (e) => {
       if (e.key == "Enter") {
         try {
-          debugger
+          // debugger
           poulateMovieList(e.target.value);
         }
         catch (e) { console.log(e); }
@@ -178,11 +178,13 @@
       }
     }
     let markFavourate=(id)=>{
-      debugger
+      // debugger
 
       let favList=getlatestFavList();
-      favList.push(id);
-      localStorage.setItem("favList",JSON.stringify(favList));
+      if(!favList.includes(id)){
+        favList.push(id);
+        localStorage.setItem("favList",JSON.stringify(favList));
+      }
     }
   </script>
 </body>
