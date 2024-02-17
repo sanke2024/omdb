@@ -11,7 +11,7 @@ let searchAutoPopulate = (() => {
     let fetchMovieList = (query) => {
         return new Promise(async (resolve, reject) => {
             try {
-                let response = await fetch(`http://www.omdbapi.com/?apikey=2fa95963&s=${query}`);
+                let response = await fetch(`https://www.omdbapi.com/?apikey=2fa95963&s=${query}`);
                 let data = await response.json();
                 if (data.Response == "False") {
                     reject(data.Error);
