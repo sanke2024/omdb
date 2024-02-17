@@ -1,6 +1,13 @@
 let searchAutoPopulate = (() => {
     var searchInput;
     var suggestions;
+
+    /**
+    *it fetches movie details based on query, max 10
+    *
+    * @param {string} query
+    * @returns {Promise<Array>}
+    */
     let fetchMovieList = (query) => {
         return new Promise(async (resolve, reject) => {
             try {
@@ -16,6 +23,12 @@ let searchAutoPopulate = (() => {
             }
         })
     }
+
+    /**
+    *renders/append links to suggestions div
+    *
+    * @param {Array} element 
+    */
     let renderSuggestions = (element) => {
         try {
             if (element.Title.length > 45) {
@@ -29,6 +42,12 @@ let searchAutoPopulate = (() => {
             console.log(error);
         }
     }
+
+    /**
+    *loops through array of movielist(data) then call rendersuggestions on each
+    * 
+    * @param {Array} data
+    */
     let populateSuggestions = (data) => {
         try {
             if (data.length > 0) {
@@ -41,6 +60,12 @@ let searchAutoPopulate = (() => {
             console.log(e);
         }
     }
+
+    /**
+    *fetches movielist on certain event
+    *
+    * @param {event} e
+    */
     let handleInput = async (e) => {
         try {
             let query = searchInput.value;
@@ -59,14 +84,26 @@ let searchAutoPopulate = (() => {
         } catch (e) {
             console.log(e);
         }
-
     }
+
+    /**
+    *handles event click outside the inputSearch
+    *
+    * @param {event} event
+    */
     let handleOutsideClick = (event) => {
         // debugger
         if (!suggestions.contains(event.target) && !(searchInput.contains(event.target))) {
             suggestions.style.display = "none";
         }
     }
+
+    /**
+    *initilizes the module
+    *
+    * @param {string} txtInputId
+    * @param {string} suggestionDivId
+    */
     let initialize = (txtInputId, suggestionDivId) => {
         searchInput = document.getElementById(`${txtInputId}`);
         suggestions = document.getElementById(`${suggestionDivId}`);
@@ -76,7 +113,7 @@ let searchAutoPopulate = (() => {
     }
     return {
         initialize: initialize,
-        fetchMovieList:fetchMovieList
+        fetchMovieList: fetchMovieList
     }
 })();
 

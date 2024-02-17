@@ -41,7 +41,7 @@
           padding-left: 0.2rem;
           padding-right: 0.2rem;
         ">
-      <a href="./main.html" style="color: black !important">IMDb</a>
+      <a href="./index.html" style="color: black !important">IMDb</a>
     </div>
     <div>
       <div id="search">
@@ -78,17 +78,17 @@
         </div> -->
       </div>
 
-        <div class="row" id="poster">
-          <div class="col-md-8"  id="posterTilte">
-            <span class="material-symbols-outlined" style="font-size: 3rem">
-              waving_hand </span><br />
-            Hi, search your favourate movies and series. <br />This site uses
-            OMDb API.
-          </div>
-          <div class="col-md-4">
-            <img src="bg-poster.svg" alt="">
-          </div>
+      <div class="row" id="poster">
+        <div class="col-md-8" id="posterTilte">
+          <span class="material-symbols-outlined" style="font-size: 3rem">
+            waving_hand </span><br />
+          Hi, search your favourate movies and series. <br />This site uses
+          OMDb API.
         </div>
+        <div class="col-md-4">
+          <img src="bg-poster.svg" alt="">
+        </div>
+      </div>
       <div class="row" id="omdb">
         <h1>OMDb API</h1>
         <hr />
@@ -124,15 +124,15 @@
         suggestions.style.display = "none";
         document.getElementById("spinner").style.display = "block";
         document.getElementById("movieList").classList.add("p-5")
-        let data ;
-        try{
-          
-          data= await searchAutoPopulate.fetchMovieList(query);
+        let data;
+        try {
+
+          data = await searchAutoPopulate.fetchMovieList(query);
           document.getElementById("movieList").innerHTML = "";
         }
-        catch(e){
-        document.getElementById("spinner").style.display = "none";
-        return
+        catch (e) {
+          document.getElementById("spinner").style.display = "none";
+          return
         }
         data.forEach(element => {
           let item = document.createElement("div");
@@ -163,7 +163,7 @@
       catch (e) { console.log(e); }
     }
     document.getElementById("txtSearch").addEventListener("keyup", (e) => {
-      if (e.key == "Enter" && (e.target.value.length >=3)) {
+      if (e.key == "Enter" && (e.target.value.length >= 3)) {
         try {
           // debugger
           poulateMovieList(e.target.value);
@@ -177,27 +177,27 @@
 
     let getlatestFavList = () => {
       ;
-      if (localStorage.getItem('favList') != null){
-        let favList=JSON.parse(localStorage.getItem("favList"));
+      if (localStorage.getItem('favList') != null) {
+        let favList = JSON.parse(localStorage.getItem("favList"));
         return favList;
 
-      }else{
-        let favList=[]
-        localStorage.setItem("favList",JSON.stringify(favList));
+      } else {
+        let favList = []
+        localStorage.setItem("favList", JSON.stringify(favList));
       }
     }
-    let markFavourate=(id)=>{
+    let markFavourate = (id) => {
       debugger
 
-      let favList=getlatestFavList();
-      if(!favList.includes(id)){
+      let favList = getlatestFavList();
+      if (!favList.includes(id)) {
         favList.push(id);
-        localStorage.setItem("favList",JSON.stringify(favList));
+        localStorage.setItem("favList", JSON.stringify(favList));
       }
-      document.getElementById("fav-btn").style.backgroundColor="#f5c518";
+      document.getElementById("fav-btn").style.backgroundColor = "#f5c518";
       setTimeout(() => {
-      document.getElementById("fav-btn").style.backgroundColor="#070D0D";
-        
+        document.getElementById("fav-btn").style.backgroundColor = "#070D0D";
+
       }, 500);
     }
 
