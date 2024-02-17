@@ -55,7 +55,7 @@
           padding-right: 0.2rem;
         "
       >
-        <a href="./main.html" style="color: black !important">IMDb</a>
+        <a href="./index.html" style="color: black !important">IMDb</a>
       </div>
       <div>
         <div id="search">
@@ -141,7 +141,6 @@
     <script>
       // debugger
       searchAutoPopulate.initialize("txtSearch", "suggestions");
-
       let id = window.location.href.match(/[?&]id=([^&]*)/)[1];
       let getMovieDetails = (id) => {
         return new Promise(async (resolve, reject) => {

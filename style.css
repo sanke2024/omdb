@@ -63,6 +63,18 @@ nav {
     color: white !important;
 }
 
+@keyframes slideFromTop {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
 #poster {
     min-height: 74vh;
     background: linear-gradient(to bottom right, #ffffff, beige);
@@ -70,6 +82,7 @@ nav {
     position: sticky;
     top: 1vh;
     z-index: -1;
+    animation: slideFromTop 1.5s ease-out;
 }
 
 #omdb {
@@ -77,7 +90,8 @@ nav {
     text-align: center;
     padding: 6rem;
 }
-#posterTilte{
+
+#posterTilte {
     font-size: 3rem;
 }
 
@@ -107,10 +121,12 @@ nav {
         padding: 1rem;
         padding-top: 5rem;
     }
-    #movieList{
-        padding:0px !important;
+
+    #movieList {
+        padding: 0px !important;
     }
-    #posterTilte{
+
+    #posterTilte {
         font-size: 2rem;
     }
 }
