@@ -10,11 +10,3 @@ Search movies and series using OMDb free API.
 
 ## Installation
 Simply open the HTML file in a modern browser, or use Live Server on vscode.
-
-## Development
-
-Want to contribute? You are welcome. Just fork the repo and request for merge after enhacements.
-
-## License
-
-MIT
